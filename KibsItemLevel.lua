@@ -543,8 +543,9 @@ function createInspectFontStrings()
 	end	
 	
 	InspectAilvl = InspectPaperDollFrame:CreateFontString("KILFrame_Inspect_Ailvl", "OVERLAY", fontStyle);
+	InspectAilvl:SetFont("Fonts\\FRIZQT__.TTF", 14, "OUTLINE");
 	InspectAilvl:SetText("ilvl: 0");
-	InspectAilvl:SetPoint("BOTTOMRIGHT",InspectPaperDollFrame,"BOTTOMRIGHT",-15,15);
+	InspectAilvl:SetPoint("BOTTOMRIGHT",InspectPaperDollFrame,"TOPRIGHT",-40,-430)
 	
 end
 
