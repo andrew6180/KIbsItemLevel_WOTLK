@@ -136,14 +136,11 @@ function eventHandler(self,event,...)
 	
 	
 	if(KibsItemLevelConfig.on)then
-		if (event == "INSPECT_TALENT_READY" and KibsItemLevelConfig.Inspection) then
-			if(InspectFrame.unit)then
-				if(UpdateInProgressInspect == false) then
-					updateInspect()
-					UpdateInProgressInspect = true;
-				end
+		if (event == "PLAYER_TARGET_CHANGED" and ilvlFrame.inspectVisible and KibsItemLevelConfig.Inspection) then
+			if(InspectFrame.unit and InspectFrame.unit == "target") then
+				updateInspect()
 			end
-		elseif(KibsItemLevelConfig.Character) then
+		elseif(event ~= "PLAYER_TARGET_CHANGED" and KibsItemLevelConfig.Character) then
 			
 			if(UpdateInProgress == false) then
 				UpdateInProgress = true;
@@ -163,7 +160,9 @@ function setupEventHandler(self,event,...)
 		ilvlFrame:RegisterEvent("SOCKET_INFO_SUCCESS");
 		ilvlFrame:RegisterEvent("SOCKET_INFO_UPDATE");
 		ilvlFrame:RegisterEvent("PLAYER_ENTERING_WORLD");
-		ilvlFrame:RegisterEvent("INSPECT_TALENT_READY");
+		ilvlFrame:RegisterEvent("PLAYER_TARGET_CHANGED")
+		InspectFrame:SetScript("OnShow", function(self) ilvlFrame.inspectVisible = true; updateInspect(); end)
+		InspectFrame:SetScript("OnHide", function(self) ilvlFrame.inspectVisible = false; end)
 		ilvlFrame:SetScript("OnEvent",eventHandler);
 		KILFrame:SetScript("OnShow",KIL_OnShow);
 		if(KibsItemLevelConfig.Character)then
